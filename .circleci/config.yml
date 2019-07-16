@@ -31,8 +31,8 @@ commands:
     steps:
       # This ensures we can approach github over SSH.
       - run: |
-        mkdir -p ~/.ssh;
-        ssh-keyscan -H github.com >> ~/.ssh/known_hosts;
+          mkdir -p ~/.ssh;
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts;
       # Include a bot account SSH key if you're using the git plugin.
       # echo "$SSH_BOT_KEY" > ~/.ssh/id_rsa && chmod 0600 ~/.ssh/id_rsa;
       - run: ./example/rebuild-widgets.sh
@@ -41,18 +41,18 @@ commands:
     description: Commit and push ./example/site to the gh-pages branch
     steps:
       - run: |
-        mkdir -p ~/.ssh;
-        ssh-keyscan -H github.com >> ~/.ssh/known_hosts;
-        echo "$SSH_DEPLOY_KEY" > ~/.ssh/id_rsa && chmod 0600 ~/.ssh/id_rsa;
+          mkdir -p ~/.ssh;
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts;
+          echo "$SSH_DEPLOY_KEY" > ~/.ssh/id_rsa && chmod 0600 ~/.ssh/id_rsa;
       - run: |
-        cd ~/repo/example/site;
-        git init;
-        git config user.email "bot@sourcecred.io";
-        git config user.name "Deployment Bot";
-        git checkout -b gh-pages;
-        git add --all;
-        git commit -m "Publishing to gh-pages `date`";
-        git push --dry-run -f git@github.com:sourcecred/widgets.git gh-pages;
+          cd ~/repo/example/site;
+          git init;
+          git config user.email "bot@sourcecred.io";
+          git config user.name "Deployment Bot";
+          git checkout -b gh-pages;
+          git add --all;
+          git commit -m "Publishing to gh-pages `date`";
+          git push --dry-run -f git@github.com:sourcecred/widgets.git gh-pages;
 
 jobs:
   test:
