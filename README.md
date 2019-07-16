@@ -1,5 +1,7 @@
 # SourceCred Widgets
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/sourcecred/widgets.svg)](https://greenkeeper.io/)
+
 A Node.js based set of tools to interpret SourceCred scores and generate widgets.
 For example to use in README's or as webpage static assets.
 
