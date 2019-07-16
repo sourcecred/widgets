@@ -1,5 +1,8 @@
 # SourceCred Widgets
 
+[![Build Status](https://circleci.com/gh/sourcecred/widgets.svg?style=svg)](https://circleci.com/gh/sourcecred/widgets)
+[![Discourse topics](https://img.shields.io/discourse/https/discourse.sourcecred.io/topics.svg)](https://discourse.sourcecred.io)
+[![Discord](https://img.shields.io/discord/453243919774253079.svg)](https://discord.gg/tsBTgc9)
 [![Greenkeeper badge](https://badges.greenkeeper.io/sourcecred/widgets.svg)](https://greenkeeper.io/)
 
 A Node.js based set of tools to interpret SourceCred scores and generate widgets.
