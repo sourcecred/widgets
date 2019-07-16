@@ -25,6 +25,34 @@ commands:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+  rebuild_example_site:
+    # Requires the SOURCECRED_GITHUB_TOKEN secret env var.
+    description: Generate a new version of the example site
+    steps:
+      # This ensures we can approach github over SSH.
+      - run: |
+        mkdir -p ~/.ssh;
+        ssh-keyscan -H github.com >> ~/.ssh/known_hosts;
+      # Include a bot account SSH key if you're using the git plugin.
+      # echo "$SSH_BOT_KEY" > ~/.ssh/id_rsa && chmod 0600 ~/.ssh/id_rsa;
+      - run: ./example/rebuild-widgets.sh
+  deploy_example_site:
+    # Requires the SSH_DEPLOY_KEY secret env var.
+    description: Commit and push ./example/site to the gh-pages branch
+    steps:
+      - run: |
+        mkdir -p ~/.ssh;
+        ssh-keyscan -H github.com >> ~/.ssh/known_hosts;
+        echo "$SSH_DEPLOY_KEY" > ~/.ssh/id_rsa && chmod 0600 ~/.ssh/id_rsa;
+      - run: |
+        cd ~/repo/example/site;
+        git init;
+        git config user.email "bot@sourcecred.io";
+        git config user.name "Deployment Bot";
+        git checkout -b gh-pages;
+        git add --all;
+        git commit -m "Publishing to gh-pages `date`";
+        git push --dry-run -f git@github.com:sourcecred/widgets.git gh-pages;
 
 jobs:
   test:
@@ -33,9 +61,26 @@ jobs:
       - checkout
       - set_up_node_modules
       - run: yarn test
+  update_example_site:
+    executor: node
+    steps:
+      - checkout
+      - run: git submodule update --recursive --init
+      - rebuild_example_site
+      - deploy_example_site
 
 workflows:
   version: 2
   commit:
     jobs:
       - test
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 23 * * *"  # 23:00 UTC
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - update_example_site
