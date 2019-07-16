@@ -13,7 +13,8 @@
   },
   "scripts": {
     "prettify": "prettier --write '**/*.js'",
-    "check-pretty": "prettier --list-different '**/*.js'"
+    "check-pretty": "prettier --list-different '**/*.js'",
+    "test": "yarn run --silent check-pretty"
   },
   "license": "MIT + Apache-2"
 }
