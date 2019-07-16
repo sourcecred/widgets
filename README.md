@@ -22,3 +22,11 @@ yarn
 # 3. Generate a contributor wall SVG.
 ./bin/contributor-wall-svg.js < scores.json > contributors.svg
 ```
+
+## Contributors
+
+Many thanks to the people who have contributed to this repository.
+
+![sourcecred/widgets contributors](http://widgets.sourcecred.io/sourcecred-widgets-contributors.svg)
+
+_Based on all-time SourceCred scores._
