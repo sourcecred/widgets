@@ -1,0 +1,5 @@
+/bin
+/build
+/coverage
+/flow-typed
+/sharness

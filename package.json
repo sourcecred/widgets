@@ -8,7 +8,12 @@
     "gh-avatar": "^2.0.0",
     "sharp": "^0.22.1"
   },
-  "devDependencies": {},
-  "scripts": {},
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  },
+  "scripts": {
+    "prettify": "prettier --write '**/*.js'",
+    "check-pretty": "prettier --list-different '**/*.js'"
+  },
   "license": "MIT + Apache-2"
 }
