@@ -29,8 +29,8 @@ export const createContributorWall = async (
     }))
     .map(
       (user) =>
-        `<a href="https://github.com/${user.id}" class="link" target="_blank" id="${user.id}">` +
-        `<image x="${user.posX}" y="${user.posY}" width="${avatarSize}" height="${avatarSize}" xlink:href="${user.avatarSlug}"/>` +
+        `<a href="https://github.com/${user.id}" class="link" target="_blank" id="${user.id}" aria-label="Visit the profile of ${user.id} at GitHub">` +
+        `<image x="${user.posX}" y="${user.posY}" width="${avatarSize}" height="${avatarSize}" xlink:href="${user.avatarSlug}" />` +
         `</a>`
     );
 
