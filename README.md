@@ -27,6 +27,6 @@ yarn
 
 Many thanks to the people who have contributed to this repository.
 
-![sourcecred/widgets contributors](http://widgets.sourcecred.io/sourcecred-widgets-contributors.svg)
+![sourcecred/widgets contributors](https://widgets.sourcecred.io/sourcecred-widgets-contributors.svg)
 
 _Based on all-time SourceCred scores._
