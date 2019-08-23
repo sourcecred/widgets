@@ -16,5 +16,5 @@
     "check-pretty": "prettier --list-different '**/*.js'",
     "test": "yarn run --silent check-pretty"
   },
-  "license": "MIT + Apache-2"
+  "license": "(MIT OR Apache-2.0)"
 }
