@@ -12,15 +12,37 @@ For example to use in README's or as webpage static assets.
 
 ```sh
 # 1. Use the main sourcecred's score feature to export scores to a file.
-export SOURCECRED_GITHUB_TOKEN=YOUR_GITHUB_TOKEN
-node PATH_TO_SOURCECRED/bin/sourcecred.js load sourcecred/sourcecred
-node PATH_TO_SOURCECRED/bin/sourcecred.js scores sourcecred/sourcecred > scores.json
+SOURCECRED_GITHUB_TOKEN=YOUR_GITHUB_TOKEN \
+  node PATH_TO_SOURCECRED/bin/sourcecred.js load sourcecred/sourcecred
+node PATH_TO_SOURCECRED/bin/sourcecred.js scores sourcecred/sourcecred \
+  > scores.json
 
 # 2. Install this package's dependencies.
 yarn
 
 # 3. Generate a contributor wall SVG.
-./bin/contributor-wall-svg.js < scores.json > contributors.svg
+SOURCECRED_GITHUB_TOKEN=YOUR_GITHUB_TOKEN \
+  ./bin/contributor-wall-svg.js < scores.json > contributors.svg
+```
+
+Or using the Docker equivalent of this.
+
+```sh
+# 1. Use the main sourcecred image to export scores to a file.
+SOURCECRED_GITHUB_TOKEN=YOUR_GITHUB_TOKEN \
+  docker run --rm -ti -v sourcecred_data:/data -e SOURCECRED_GITHUB_TOKEN \
+  sourcecred/sourcecred load sourcecred/sourcecred
+docker run --rm -ti -v sourcecred_data:/data sourcecred/sourcecred scores \
+  sourcecred/sourcecred > scores.json
+
+# 2. To build a Docker image with your changes. Or skip this to use a release from Dockerhub.
+docker build -t sourcecred/widgets .
+
+# 3. Generate a contributor wall SVG.
+# Note: don't use the -t option here, it will produce an error "the input device is not a TTY".
+SOURCECRED_GITHUB_TOKEN=YOUR_GITHUB_TOKEN \
+  docker run --rm -i -e SOURCECRED_GITHUB_TOKEN sourcecred/widgets \
+  < scores.json > contributors.svg
 ```
 
 ## Contributors
