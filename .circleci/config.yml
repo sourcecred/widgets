@@ -41,13 +41,14 @@ commands:
       # echo "$SSH_BOT_KEY" > ~/.ssh/id_rsa && chmod 0600 ~/.ssh/id_rsa;
       - run: ./example/rebuild-widgets.sh
   deploy_example_site:
-    # Requires the SSH_DEPLOY_KEY secret env var.
     description: Commit and push ./example/site to the gh-pages branch
     steps:
       - run: |
           mkdir -p ~/.ssh;
           ssh-keyscan -H github.com >> ~/.ssh/known_hosts;
-          echo "$SSH_DEPLOY_KEY" > ~/.ssh/id_rsa && chmod 0600 ~/.ssh/id_rsa;
+      - add_ssh_keys:
+          fingerprints:
+            - 7e:54:5f:a1:dd:b1:58:7c:13:ab:83:63:f9:c6:71:10
       - run: |
           cd ~/repo/example/site;
           git init;
