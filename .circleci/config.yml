@@ -111,8 +111,7 @@ workflows:
                    echo "Commit for Docker tag is ${DOCKER_TAG}"
                    docker tag sourcecred/widgets:latest sourcecred/widgets:${DOCKER_TAG}
                    docker tag sourcecred/widgets:latest sourcecred/widgets:dev
-                   docker push sourcecred/widgets:${DOCKER_TAG}
-                   docker push sourcecred/widgets:dev
+                   docker push sourcecred/widgets
 
   nightly:
     jobs:
