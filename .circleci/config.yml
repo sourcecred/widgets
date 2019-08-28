@@ -57,6 +57,11 @@ commands:
           git add --all;
           git commit -m "Publishing to gh-pages `date`";
           git push --dry-run -f git@github.com:sourcecred/widgets.git gh-pages;
+  pull_cache_from_images:
+    description: Pulls docker images usable for our cache.
+    steps:
+      - run: docker pull node:12
+      - run: docker pull sourcecred/widgets:latest
 
 jobs:
   test:
@@ -82,12 +87,15 @@ workflows:
           deploy: false
           image: sourcecred/widgets
           tag: latest
+          extra_build_args: --cache-from=node:12,sourcecred/widgets:latest
           requires:
             - test
           filters:
             branches:
               ignore: 
                 - master
+          before_build:
+            - pull_cache_from_images
           after_build:
             - run:
                 name: Preview Docker Tag for Build
@@ -98,11 +106,14 @@ workflows:
       - docker/publish:
           image: sourcecred/widgets
           tag: latest
+          extra_build_args: --cache-from=node:12,sourcecred/widgets:latest
           requires:
             - test
           filters:
             branches:
               only: master
+          before_build:
+            - pull_cache_from_images
           after_build:
             - run:
                 name: Publish Docker Tag with Commit
