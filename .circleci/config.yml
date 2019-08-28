@@ -5,6 +5,10 @@
 #
 version: 2.1
 
+orbs:
+  # https://circleci.com/orbs/registry/orb/circleci/docker
+  docker: circleci/docker@0.5.13
+
 executors:
   node:
     docker:
@@ -70,11 +74,47 @@ jobs:
       - deploy_example_site
 
 workflows:
-  version: 2
+  version: 2.0
   commit:
     jobs:
       - test
+      - docker/publish:
+          deploy: false
+          image: sourcecred/widgets
+          tag: latest
+          requires:
+            - test
+          filters:
+            branches:
+              ignore: 
+                - master
+          after_build:
+            - run:
+                name: Preview Docker Tag for Build
+                command: |
+                   DOCKER_TAG=$(echo "${CIRCLE_SHA1}" | head -c 12)
+                   echo "Commit that would be used for Docker tag is ${DOCKER_TAG}"
+
+      - docker/publish:
+          image: sourcecred/widgets
+          tag: latest
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
+          after_build:
+            - run:
+                name: Publish Docker Tag with Commit
+                command: |
+                   DOCKER_TAG=$(echo "${CIRCLE_SHA1}" | head -c 12)
+                   echo "Commit for Docker tag is ${DOCKER_TAG}"
+                   docker tag sourcecred/widgets:latest sourcecred/widgets:${DOCKER_TAG}
+                   docker tag sourcecred/widgets:latest sourcecred/widgets:dev
+
   nightly:
+    jobs:
+      - update_example_site
     triggers:
       - schedule:
           cron: "0 23 * * *"  # 23:00 UTC
@@ -82,5 +122,3 @@ workflows:
             branches:
               only:
                 - master
-    jobs:
-      - update_example_site
