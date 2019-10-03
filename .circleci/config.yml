@@ -56,7 +56,7 @@ commands:
           git config user.name "Deployment Bot";
           git checkout -b gh-pages;
           git add --all;
-          git commit -m "Publishing to gh-pages `date`";
+          git commit -m "Publishing to gh-pages `date`" -m "[ci skip]";
           git push -f git@github.com:sourcecred/widgets.git gh-pages;
   pull_cache_from_images:
     description: Pulls docker images usable for our cache.
