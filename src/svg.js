@@ -5,7 +5,7 @@ import {fetchEmbedableAvatar} from "./avatars";
 export const createContributorWall = async (
   users,
   token,
-  {minCred, maxUsers, usersPerRow, avatarSize, margin}
+  {minCred, maxUsers, usersPerRow, avatarSize, margin, cacheDir}
 ) => {
   const selectedUsers = users
     .slice(0, maxUsers)
@@ -13,11 +13,13 @@ export const createContributorWall = async (
 
   const usersWithImages = await Promise.all(
     selectedUsers.map((user) =>
-      fetchEmbedableAvatar(user.id, token, {avatarSize}).then((avatarSlug) => ({
-        id: user.id,
-        totalCred: user.totalCred,
-        avatarSlug,
-      }))
+      fetchEmbedableAvatar(user.id, token, {avatarSize, cacheDir}).then(
+        (avatarSlug) => ({
+          id: user.id,
+          totalCred: user.totalCred,
+          avatarSlug,
+        })
+      )
     )
   );
 
