@@ -1,12 +1,18 @@
 "use strict";
 
-import axios from "axios";
+import got from "got";
 import sharp from "sharp";
+import createCache from "keyv-fs-sync";
 
-export const fetchEmbedableAvatar = async (username, token, {avatarSize}) => {
+export const fetchEmbedableAvatar = async (
+  username,
+  token,
+  {avatarSize, cacheDir}
+) => {
   const url = `https://github.com/${username.toLowerCase()}.png`;
-  const httpResult = await axios.get(url, {responseType: "arraybuffer"});
-  const resizedImage = await sharp(Buffer.from(httpResult.data))
+  const cache = cacheDir ? createCache({path: cacheDir}) : null;
+  const httpResult = await got.get(url, {encoding: null, cache});
+  const resizedImage = await sharp(httpResult.body)
     .resize(avatarSize, avatarSize)
     .png()
     .toBuffer();

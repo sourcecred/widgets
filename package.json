@@ -3,9 +3,9 @@
   "version": "0.0.1-alpha",
   "private": true,
   "dependencies": {
-    "axios": "^0.19.0",
     "esm": "^3.2.25",
-    "gh-avatar": "^2.0.0",
+    "got": "^9.6.0",
+    "keyv-fs-sync": "^0.1.0",
     "sharp": "^0.23.0"
   },
   "devDependencies": {
