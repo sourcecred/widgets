@@ -1,6 +1,6 @@
 "use strict";
 
-import {fetchEmbedableAvatar} from "./avatars";
+import {avatarServiceFactory} from "./services/avatars";
 import {svgContributorWall} from "./svg";
 
 export const createContributorWall = async (
@@ -8,19 +8,21 @@ export const createContributorWall = async (
   token,
   {minCred, maxUsers, usersPerRow, avatarSize, margin, cacheDir}
 ) => {
+  const avatarService = avatarServiceFactory(cacheDir);
   const selectedUsers = users
     .slice(0, maxUsers)
     .filter((user) => user.totalCred >= minCred);
 
   const usersWithImages = await Promise.all(
     selectedUsers.map((user) =>
-      fetchEmbedableAvatar(user.id, token, {avatarSize, cacheDir}).then(
-        (avatarSlug) => ({
+      avatarService
+        .githubAvatar(user.id)
+        .then(avatarService.toEmbedable(avatarSize))
+        .then((avatarSlug) => ({
           id: user.id,
           totalCred: user.totalCred,
           avatarSlug,
-        })
-      )
+        }))
     )
   );
 
