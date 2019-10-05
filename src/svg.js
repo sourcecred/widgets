@@ -2,27 +2,10 @@
 
 import {fetchEmbedableAvatar} from "./avatars";
 
-export const createContributorWall = async (
-  users,
-  token,
-  {minCred, maxUsers, usersPerRow, avatarSize, margin, cacheDir}
+export const svgContributorWall = async (
+  usersWithImages,
+  {usersPerRow, avatarSize, margin}
 ) => {
-  const selectedUsers = users
-    .slice(0, maxUsers)
-    .filter((user) => user.totalCred >= minCred);
-
-  const usersWithImages = await Promise.all(
-    selectedUsers.map((user) =>
-      fetchEmbedableAvatar(user.id, token, {avatarSize, cacheDir}).then(
-        (avatarSlug) => ({
-          id: user.id,
-          totalCred: user.totalCred,
-          avatarSlug,
-        })
-      )
-    )
-  );
-
   const images = usersWithImages
     .map((user, i) => ({
       ...user,
