@@ -9,7 +9,7 @@ export interface AvatarService {
   toEmbedable(avatarSize: number): (buffer: Buffer) => Promise<string>;
 }
 
-export function avatarServiceFactory(cacheDir: string): AvatarService {
+export function avatarServiceFactory(cacheDir?: string): AvatarService {
   const githubAvatar = async (username: string) => {
     const url = `https://github.com/${username.toLowerCase()}.png`;
     const cache = cacheDir ? createCache({path: cacheDir}) : null;
