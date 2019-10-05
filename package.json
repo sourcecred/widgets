@@ -23,10 +23,10 @@
     "build": "yarn -s build:clean && yarn -s build:lib",
     "build:clean": "rimraf lib",
     "build:lib": "babel -d lib src",
-    "prettify": "prettier --write '{src,test}/**/*.js'",
+    "prettify": "prettier --write '**/*.js'",
     "test": "yarn -s test:flow && yarn -s test:unit && yarn -s test:pretty",
     "test:flow": "flow --quiet",
-    "test:pretty": "prettier --list-different '{src,test}/**/*.js'",
+    "test:pretty": "prettier --list-different '**/*.js'",
     "test:unit": "jest"
   },
   "license": "(MIT OR Apache-2.0)"

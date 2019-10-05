@@ -4,10 +4,10 @@ module.exports = {
       "@babel/preset-env",
       {
         targets: {
-          node: "current"
-        }
-      }
+          node: "current",
+        },
+      },
     ],
-    "@babel/preset-flow"
-  ]
+    "@babel/preset-flow",
+  ],
 };
