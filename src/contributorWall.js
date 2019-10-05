@@ -28,16 +28,15 @@ export const createContributorWall = async (
     .filter((user) => user.totalCred >= minCred);
 
   const usersWithImages = await Promise.all(
-    selectedUsers.map((user) =>
-      avatarRepository
-        .githubAvatar(user.id)
-        .then(imageToEmbedable(avatarSize))
-        .then((avatarSlug) => ({
-          id: user.id,
-          totalCred: user.totalCred,
-          avatarSlug,
-        }))
-    )
+    selectedUsers.map(async (user) => {
+      const avatar = await avatarRepository.githubAvatar(user.id);
+      const avatarSlug = await imageToEmbedable(avatar, avatarSize);
+      return {
+        id: user.id,
+        totalCred: user.totalCred,
+        avatarSlug,
+      };
+    })
   );
 
   return svgService.contributorWall(usersWithImages, {
