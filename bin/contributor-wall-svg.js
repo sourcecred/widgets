@@ -2,7 +2,9 @@
 
 require = require("esm")(module/*, options*/)
 
+const {join} = require('path');
 const {readFileSync} = require('fs');
+const {sync: mkdirpSync} = require('mkdirp');
 const {fromJSONString} = require('../src/scores');
 const {createContributorWall} = require('../src/svg');
 
@@ -16,6 +18,16 @@ const MAX_USERS = process.env.SVG_MAX_USERS ? Number(process.env.SVG_MAX_USERS) 
 // Required env var check.
 if(!process.env.SOURCECRED_GITHUB_TOKEN) {
 	throw new Error('SOURCECRED_GITHUB_TOKEN env var must be set to a github personal access token.');
+}
+
+// Perhaps you have a SOURCECRED_DIRECTORY still set to glean the cache path from, otherwise use CACHE_DIR.
+const CACHE_DIR =
+	process.env.CACHE_DIR ? process.env.CACHE_DIR :
+	process.env.SOURCECRED_DIRECTORY ? join(process.env.SOURCECRED_DIRECTORY, 'cache/widgets') :
+	null;
+
+if(CACHE_DIR) {
+	mkdirpSync(CACHE_DIR);
 }
 
 const USER_PER_ROW = 10;
@@ -34,5 +46,6 @@ createContributorWall(credData.users, process.env.SOURCECRED_GITHUB_TOKEN, {
 	usersPerRow: USER_PER_ROW,
 	avatarSize: AVATAR_SIZE,
 	margin: MARGIN,
+	cacheDir: CACHE_DIR
 })
 .then(console.log);
