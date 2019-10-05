@@ -14,6 +14,7 @@
     "@babel/core": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-flow": "^7.0.0",
+    "flow-bin": "^0.109.0",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0"
@@ -23,9 +24,10 @@
     "build:clean": "rimraf lib",
     "build:lib": "babel -d lib src",
     "prettify": "prettier --write '{src,test}/**/*.js'",
-    "check-pretty": "prettier --list-different '{src,test}/**/*.js'",
-    "test": "yarn run unit && yarn run --silent check-pretty",
-    "unit": "jest"
+    "test": "yarn -s test:flow && yarn -s test:unit && yarn -s test:pretty",
+    "test:flow": "flow --quiet",
+    "test:pretty": "prettier --list-different '{src,test}/**/*.js'",
+    "test:unit": "jest"
   },
   "license": "(MIT OR Apache-2.0)"
 }
