@@ -2,9 +2,10 @@
 
 import got from "got";
 import createCache from "keyv-fs-sync";
+import {type Image} from "../models/image";
 
 export interface AvatarRepository {
-  githubAvatar(username: string): Promise<Buffer>;
+  githubAvatar(username: string): Promise<Image>;
 }
 
 export function avatarRepositoryFactory(cacheDir?: string): AvatarRepository {

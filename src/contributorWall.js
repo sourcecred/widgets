@@ -1,12 +1,11 @@
 // @flow
 
 import {type SvgService} from "./services/svg";
-import {type ImageToEmbedableFunction} from "./functions/imageToEmbedable";
+import {toEmbedableImage} from "./models/image";
 import {type AvatarRepository} from "./repositories/avatars";
 
 type ContributorWallDependencies = {|
   +avatarRepository: AvatarRepository,
-  +imageToEmbedable: ImageToEmbedableFunction,
   +svgService: SvgService,
 |};
 
@@ -20,7 +19,7 @@ type ContributorWallOptions = {|
 
 export const createContributorWall = async (
   users: any,
-  {avatarRepository, imageToEmbedable, svgService}: ContributorWallDependencies,
+  {avatarRepository, svgService}: ContributorWallDependencies,
   {minCred, maxUsers, usersPerRow, avatarSize, margin}: ContributorWallOptions
 ) => {
   const selectedUsers = users
@@ -30,7 +29,7 @@ export const createContributorWall = async (
   const usersWithImages = await Promise.all(
     selectedUsers.map(async (user) => {
       const avatar = await avatarRepository.githubAvatar(user.id);
-      const avatarSlug = await imageToEmbedable(avatar, avatarSize);
+      const avatarSlug = await toEmbedableImage(avatar, avatarSize);
       return {
         id: user.id,
         totalCred: user.totalCred,

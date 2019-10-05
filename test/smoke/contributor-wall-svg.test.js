@@ -5,7 +5,6 @@ const {createTmpCacheDir, clearTmpCacheDir} = require("../util/caching");
 const {
   createContributorWall,
   avatarRepositoryFactory,
-  imageToEmbedable,
   svgService,
 } = require("../../lib");
 
@@ -15,7 +14,6 @@ test("Expect min-scores-v1 SVG to match snapshot", async () => {
   const users = minScoresV1[1].users;
   const dependencies = {
     avatarRepository,
-    imageToEmbedable,
     svgService,
   };
   const options = {
@@ -40,7 +38,6 @@ test("Expect image caching to produce identical results", async () => {
   const avatarRepository = avatarRepositoryFactory(cacheDir);
   const dependencies = {
     avatarRepository,
-    imageToEmbedable,
     svgService,
   };
   const options = {
