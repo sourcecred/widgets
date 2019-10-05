@@ -2,7 +2,7 @@
 
 const minScoresV1 = require("./data/min-scores-v1.json");
 const {createTmpCacheDir, clearTmpCacheDir} = require("../util/caching");
-const {createContributorWall} = require("../../lib/svg");
+const {createContributorWall} = require("../../lib");
 
 test("Expect min-scores-v1 SVG to match snapshot", async () => {
   // Given
