@@ -1,13 +1,14 @@
 // @flow
 
+import {type SvgService} from "./services/svg";
 import {type ImageService} from "./services/image";
 import {type AvatarRepository} from "./repositories/avatars";
-import {svgContributorWall} from "./svg";
 
 export const createContributorWall = async (
   users: any,
   avatarRepository: AvatarRepository,
   imageService: ImageService,
+  svgService: SvgService,
   {minCred, maxUsers, usersPerRow, avatarSize, margin}: any
 ) => {
   const selectedUsers = users
@@ -27,5 +28,9 @@ export const createContributorWall = async (
     )
   );
 
-  return svgContributorWall(usersWithImages, {usersPerRow, avatarSize, margin});
+  return svgService.contributorWall(usersWithImages, {
+    usersPerRow,
+    avatarSize,
+    margin,
+  });
 };

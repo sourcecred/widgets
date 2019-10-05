@@ -6,6 +6,7 @@ const {
   createContributorWall,
   avatarRepositoryFactory,
   imageService,
+  svgService,
 } = require("../../lib");
 
 test("Expect min-scores-v1 SVG to match snapshot", async () => {
@@ -25,6 +26,7 @@ test("Expect min-scores-v1 SVG to match snapshot", async () => {
     users,
     avatarRepository,
     imageService,
+    svgService,
     options
   );
 
@@ -50,12 +52,14 @@ test("Expect image caching to produce identical results", async () => {
     users,
     avatarRepository,
     imageService,
+    svgService,
     options
   );
   const svg2 = await createContributorWall(
     users,
     avatarRepository,
     imageService,
+    svgService,
     options
   );
 
