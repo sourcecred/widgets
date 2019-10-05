@@ -1,14 +1,13 @@
-"use strict";
+// @flow
 
-import {avatarServiceFactory} from "./services/avatars";
+import {avatarServiceFactory, type AvatarService} from "./services/avatars";
 import {svgContributorWall} from "./svg";
 
 export const createContributorWall = async (
-  users,
-  token,
-  {minCred, maxUsers, usersPerRow, avatarSize, margin, cacheDir}
+  users: any,
+  avatarService: AvatarService,
+  {minCred, maxUsers, usersPerRow, avatarSize, margin}: any
 ) => {
-  const avatarService = avatarServiceFactory(cacheDir);
   const selectedUsers = users
     .slice(0, maxUsers)
     .filter((user) => user.totalCred >= minCred);
