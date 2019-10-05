@@ -10,12 +10,15 @@
     "sharp": "^0.23.0"
   },
   "devDependencies": {
-    "prettier": "^1.18.2"
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "rimraf": "^3.0.0"
   },
   "scripts": {
     "prettify": "prettier --write '**/*.js'",
     "check-pretty": "prettier --list-different '**/*.js'",
-    "test": "yarn run --silent check-pretty"
+    "test": "yarn run unit && yarn run --silent check-pretty",
+    "unit": "jest"
   },
   "license": "(MIT OR Apache-2.0)"
 }
