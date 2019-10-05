@@ -4,12 +4,24 @@ import {type SvgService} from "./services/svg";
 import {type ImageService} from "./services/image";
 import {type AvatarRepository} from "./repositories/avatars";
 
+type ContributorWallDependencies = {|
+  +avatarRepository: AvatarRepository,
+  +imageService: ImageService,
+  +svgService: SvgService,
+|};
+
+type ContributorWallOptions = {|
+  +minCred: number,
+  +maxUsers: number,
+  +usersPerRow: number,
+  +avatarSize: number,
+  +margin: number,
+|};
+
 export const createContributorWall = async (
   users: any,
-  avatarRepository: AvatarRepository,
-  imageService: ImageService,
-  svgService: SvgService,
-  {minCred, maxUsers, usersPerRow, avatarSize, margin}: any
+  {avatarRepository, imageService, svgService}: ContributorWallDependencies,
+  {minCred, maxUsers, usersPerRow, avatarSize, margin}: ContributorWallOptions
 ) => {
   const selectedUsers = users
     .slice(0, maxUsers)

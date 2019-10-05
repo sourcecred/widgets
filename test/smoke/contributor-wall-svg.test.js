@@ -13,6 +13,11 @@ test("Expect min-scores-v1 SVG to match snapshot", async () => {
   // Given
   const avatarRepository = avatarRepositoryFactory();
   const users = minScoresV1[1].users;
+  const dependencies = {
+    avatarRepository,
+    imageService,
+    svgService,
+  };
   const options = {
     minCred: 0,
     maxUsers: 10,
@@ -22,13 +27,7 @@ test("Expect min-scores-v1 SVG to match snapshot", async () => {
   };
 
   // When
-  const svg = await createContributorWall(
-    users,
-    avatarRepository,
-    imageService,
-    svgService,
-    options
-  );
+  const svg = await createContributorWall(users, dependencies, options);
 
   // Then
   expect(svg).toMatchSnapshot();
@@ -39,6 +38,11 @@ test("Expect image caching to produce identical results", async () => {
   const users = minScoresV1[1].users;
   const cacheDir = createTmpCacheDir();
   const avatarRepository = avatarRepositoryFactory(cacheDir);
+  const dependencies = {
+    avatarRepository,
+    imageService,
+    svgService,
+  };
   const options = {
     minCred: 0,
     maxUsers: 10,
@@ -48,20 +52,8 @@ test("Expect image caching to produce identical results", async () => {
   };
 
   // When
-  const svg1 = await createContributorWall(
-    users,
-    avatarRepository,
-    imageService,
-    svgService,
-    options
-  );
-  const svg2 = await createContributorWall(
-    users,
-    avatarRepository,
-    imageService,
-    svgService,
-    options
-  );
+  const svg1 = await createContributorWall(users, dependencies, options);
+  const svg2 = await createContributorWall(users, dependencies, options);
 
   // Then
   expect(svg1).toEqual(svg2);
