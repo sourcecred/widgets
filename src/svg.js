@@ -1,7 +1,5 @@
 "use strict";
 
-import {fetchEmbedableAvatar} from "./avatars";
-
 export const svgContributorWall = async (
   usersWithImages,
   {usersPerRow, avatarSize, margin}

@@ -3,7 +3,7 @@
 const {join} = require('path');
 const {readFileSync} = require('fs');
 const {sync: mkdirpSync} = require('mkdirp');
-const {createContributorWall, scoreService} = require('../lib');
+const {createContributorWall, scoreService, avatarServiceFactory} = require('../lib');
 
 // Minimum required cred to be listed.
 // Note this is before rounding.
@@ -27,6 +27,8 @@ if(CACHE_DIR) {
 	mkdirpSync(CACHE_DIR);
 }
 
+const avatarService = avatarServiceFactory(CACHE_DIR);
+
 const USER_PER_ROW = 10;
 const AVATAR_SIZE = 64;
 const MARGIN = 5;
@@ -37,12 +39,11 @@ const data = readFileSync(0, "utf-8");
 // Parse score
 const credData = scoreService.fromJSONString(data);
 
-createContributorWall(credData.users, process.env.SOURCECRED_GITHUB_TOKEN, {
+createContributorWall(credData.users, avatarService, {
 	minCred: MIN_CRED,
 	maxUsers: MAX_USERS,
 	usersPerRow: USER_PER_ROW,
 	avatarSize: AVATAR_SIZE,
 	margin: MARGIN,
-	cacheDir: CACHE_DIR
 })
 .then(console.log);
