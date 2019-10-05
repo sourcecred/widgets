@@ -70,6 +70,7 @@ jobs:
     steps:
       - checkout
       - set_up_node_modules
+      - run: yarn -s build
       - run: yarn test
   update_example_site:
     executor: node
@@ -93,7 +94,7 @@ workflows:
             - test
           filters:
             branches:
-              ignore: 
+              ignore:
                 - master
           before_build:
             - pull_cache_from_images
