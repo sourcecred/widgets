@@ -3,7 +3,7 @@
 const {join} = require('path');
 const {readFileSync} = require('fs');
 const {sync: mkdirpSync} = require('mkdirp');
-const {createContributorWall, scores} = require('../lib');
+const {createContributorWall, scoreService} = require('../lib');
 
 // Minimum required cred to be listed.
 // Note this is before rounding.
@@ -35,7 +35,7 @@ const MARGIN = 5;
 const data = readFileSync(0, "utf-8");
 
 // Parse score
-const credData = scores.fromJSONString(data);
+const credData = scoreService.fromJSONString(data);
 
 createContributorWall(credData.users, process.env.SOURCECRED_GITHUB_TOKEN, {
 	minCred: MIN_CRED,

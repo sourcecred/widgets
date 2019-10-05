@@ -1,6 +1,4 @@
 "use strict";
 
-import * as scores from "./scores";
-export {scores};
-
+export {scoreService} from "./services/scores";
 export {createContributorWall} from "./contributorWall";
