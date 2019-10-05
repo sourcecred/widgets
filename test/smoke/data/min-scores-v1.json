@@ -1,0 +1,23 @@
+[
+  {
+    "type": "sourcecred/cli/scores",
+    "version": "0.1.0"
+  },
+  {
+    "intervals": [
+      {
+        "endTimeMs": 1540080000000,
+        "startTimeMs": 1539475200000
+      }
+    ],
+    "users": [
+      {
+        "id": "credbot",
+        "intervalCred": [
+          42.123
+        ],
+        "totalCred": 42.123
+      }
+    ]
+  }
+]
