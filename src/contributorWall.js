@@ -1,12 +1,12 @@
 // @flow
 
 import {type ImageService} from "./services/image";
-import {type AvatarService} from "./services/avatars";
+import {type AvatarRepository} from "./repositories/avatars";
 import {svgContributorWall} from "./svg";
 
 export const createContributorWall = async (
   users: any,
-  avatarService: AvatarService,
+  avatarRepository: AvatarRepository,
   imageService: ImageService,
   {minCred, maxUsers, usersPerRow, avatarSize, margin}: any
 ) => {
@@ -16,7 +16,7 @@ export const createContributorWall = async (
 
   const usersWithImages = await Promise.all(
     selectedUsers.map((user) =>
-      avatarService
+      avatarRepository
         .githubAvatar(user.id)
         .then(imageService.toEmbedable(avatarSize))
         .then((avatarSlug) => ({

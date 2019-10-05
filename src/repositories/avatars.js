@@ -1,14 +1,13 @@
 // @flow
 
 import got from "got";
-import sharp from "sharp";
 import createCache from "keyv-fs-sync";
 
-export interface AvatarService {
+export interface AvatarRepository {
   githubAvatar(username: string): Promise<Buffer>;
 }
 
-export function avatarServiceFactory(cacheDir?: string): AvatarService {
+export function avatarRepositoryFactory(cacheDir?: string): AvatarRepository {
   const githubAvatar = async (username: string) => {
     const url = `https://github.com/${username.toLowerCase()}.png`;
     const cache = cacheDir ? createCache({path: cacheDir}) : null;
