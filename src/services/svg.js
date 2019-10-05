@@ -25,14 +25,16 @@ export const svgService = {
           `</a>`
       );
 
-    return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${(avatarSize +
-      margin) *
-      usersPerRow -
-      margin}" height="${Math.ceil(images.length / usersPerRow) *
-      (avatarSize + margin) -
-      margin}">
-    <style>.link { cursor: pointer; }</style>
-    ${images.join("\n")}
-  </svg>`;
+    return (
+      `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${(avatarSize +
+        margin) *
+        usersPerRow -
+        margin}" height="${Math.ceil(images.length / usersPerRow) *
+        (avatarSize + margin) -
+        margin}">\n` +
+      `<style>.link { cursor: pointer; }</style>\n` +
+      images.join("\n") +
+      `\n</svg>`
+    );
   },
 };
