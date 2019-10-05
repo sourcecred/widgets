@@ -6,7 +6,7 @@ const {sync: mkdirpSync} = require("mkdirp");
 const {
   createContributorWall,
   scoreService,
-  imageService,
+  imageToEmbedable,
   svgService,
   avatarRepositoryFactory,
 } = require("../lib");
@@ -54,7 +54,7 @@ const credData = scoreService.fromJSONString(data);
 
 createContributorWall(
   credData.users,
-  {avatarRepository, imageService, svgService},
+  {avatarRepository, imageToEmbedable, svgService},
   {
     minCred: MIN_CRED,
     maxUsers: MAX_USERS,
