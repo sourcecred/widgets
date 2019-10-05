@@ -3,7 +3,7 @@
 const {join} = require('path');
 const {readFileSync} = require('fs');
 const {sync: mkdirpSync} = require('mkdirp');
-const {createContributorWall, scoreService, avatarServiceFactory} = require('../lib');
+const {createContributorWall, scoreService, imageService, avatarServiceFactory} = require('../lib');
 
 // Minimum required cred to be listed.
 // Note this is before rounding.
@@ -39,7 +39,7 @@ const data = readFileSync(0, "utf-8");
 // Parse score
 const credData = scoreService.fromJSONString(data);
 
-createContributorWall(credData.users, avatarService, {
+createContributorWall(credData.users, avatarService, imageService, {
 	minCred: MIN_CRED,
 	maxUsers: MAX_USERS,
 	usersPerRow: USER_PER_ROW,

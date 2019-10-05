@@ -6,7 +6,6 @@ import createCache from "keyv-fs-sync";
 
 export interface AvatarService {
   githubAvatar(username: string): Promise<Buffer>;
-  toEmbedable(avatarSize: number): (buffer: Buffer) => Promise<string>;
 }
 
 export function avatarServiceFactory(cacheDir?: string): AvatarService {
@@ -18,17 +17,7 @@ export function avatarServiceFactory(cacheDir?: string): AvatarService {
     return httpResult.body;
   };
 
-  const toEmbedable = (avatarSize: number) => async (buffer: Buffer) => {
-    const resizedImage = await sharp(buffer)
-      .resize(avatarSize, avatarSize)
-      .png()
-      .toBuffer();
-
-    return `data:image/png;base64,${resizedImage.toString("base64")}`;
-  };
-
   return {
     githubAvatar,
-    toEmbedable,
   };
 }

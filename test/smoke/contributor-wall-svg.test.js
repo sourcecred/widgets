@@ -2,7 +2,11 @@
 
 const minScoresV1 = require("./data/min-scores-v1.json");
 const {createTmpCacheDir, clearTmpCacheDir} = require("../util/caching");
-const {createContributorWall, avatarServiceFactory} = require("../../lib");
+const {
+  createContributorWall,
+  avatarServiceFactory,
+  imageService,
+} = require("../../lib");
 
 test("Expect min-scores-v1 SVG to match snapshot", async () => {
   // Given
@@ -17,7 +21,12 @@ test("Expect min-scores-v1 SVG to match snapshot", async () => {
   };
 
   // When
-  const svg = await createContributorWall(users, avatarService, options);
+  const svg = await createContributorWall(
+    users,
+    avatarService,
+    imageService,
+    options
+  );
 
   // Then
   expect(svg).toMatchSnapshot();
@@ -37,8 +46,18 @@ test("Expect image caching to produce identical results", async () => {
   };
 
   // When
-  const svg1 = await createContributorWall(users, avatarService, options);
-  const svg2 = await createContributorWall(users, avatarService, options);
+  const svg1 = await createContributorWall(
+    users,
+    avatarService,
+    imageService,
+    options
+  );
+  const svg2 = await createContributorWall(
+    users,
+    avatarService,
+    imageService,
+    options
+  );
 
   // Then
   expect(svg1).toEqual(svg2);
