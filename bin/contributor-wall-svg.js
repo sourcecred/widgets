@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 
-require = require("esm")(module/*, options*/)
-
 const {join} = require('path');
 const {readFileSync} = require('fs');
 const {sync: mkdirpSync} = require('mkdirp');
-const {fromJSONString} = require('../src/scores');
-const {createContributorWall} = require('../src/svg');
+const {fromJSONString} = require('../lib/scores');
+const {createContributorWall} = require('../lib/svg');
 
 // Minimum required cred to be listed.
 // Note this is before rounding.

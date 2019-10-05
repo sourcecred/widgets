@@ -1,10 +1,8 @@
 "use strict";
 
-require = require("esm")(module /*, options*/);
-
 const minScoresV1 = require("./data/min-scores-v1.json");
 const {createTmpCacheDir, clearTmpCacheDir} = require("../util/caching");
-const {createContributorWall} = require("../../src/svg");
+const {createContributorWall} = require("../../lib/svg");
 
 test("Expect min-scores-v1 SVG to match snapshot", async () => {
   // Given

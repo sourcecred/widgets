@@ -10,13 +10,20 @@
     "sharp": "^0.23.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-transform-flow-strip-types": "^7.4.4",
+    "@babel/preset-env": "^7.6.2",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0"
   },
   "scripts": {
-    "prettify": "prettier --write '**/*.js'",
-    "check-pretty": "prettier --list-different '**/*.js'",
+    "build": "yarn -s build:clean && yarn -s build:lib",
+    "build:clean": "rimraf lib",
+    "build:lib": "babel -d lib src",
+    "prettify": "prettier --write '{src,test}/**/*.js'",
+    "check-pretty": "prettier --list-different '{src,test}/**/*.js'",
     "test": "yarn run unit && yarn run --silent check-pretty",
     "unit": "jest"
   },
