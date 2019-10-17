@@ -2,7 +2,7 @@
 
 import {fromCompat, type Compatible} from "../util/compat";
 
-const COMPAT_INFO = {type: "sourcecred/cli/scores", version: "0.1.0"};
+const COMPAT_INFO = {type: "sourcecred/cli/scores", version: "0.2.0"};
 
 export type Scores = Compatible<ScoreData>;
 export type ScoreData = {|
@@ -15,14 +15,25 @@ export interface ScoreService {
   fromJSONString(jsonString: string): ScoreData;
 }
 
-const validateScoreFormat = (plainObject: Scores) => {
-  return fromCompat(COMPAT_INFO, plainObject);
-};
+function upgradeFromV010(input: ScoreData): ScoreData {
+  return {
+    intervals: input.intervals,
+    users: input.users.map((u) => ({
+      address: ["sourcecred", "github", "USERLIKE", "USER", u.id],
+      intervalCred: u.intervalCred,
+      totalCred: u.totalCred,
+    })),
+  };
+}
 
-const fromJSONString = (jsonString: string) => {
+function validateScoreFormat(plainObject: Scores): ScoreData {
+  return fromCompat(COMPAT_INFO, plainObject, {"0.1.0": upgradeFromV010});
+}
+
+function fromJSONString(jsonString: string): ScoreData {
   const plainObject = JSON.parse(jsonString);
   return validateScoreFormat(plainObject);
-};
+}
 
 export const scoreService = {
   validateScoreFormat,

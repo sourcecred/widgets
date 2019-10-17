@@ -2,6 +2,7 @@
 
 import {type SvgService} from "./services/svg";
 import {toEmbedableImage} from "./models/image";
+import {idFromGithubAddress} from "./models/address";
 import {type AvatarRepository} from "./repositories/avatars";
 
 type ContributorWallDependencies = {|
@@ -28,10 +29,11 @@ export const createContributorWall = async (
 
   const usersWithImages = await Promise.all(
     selectedUsers.map(async (user) => {
-      const avatar = await avatarRepository.githubAvatar(user.id);
+      const id = idFromGithubAddress(user.address);
+      const avatar = await avatarRepository.githubAvatar(id);
       const avatarSlug = await toEmbedableImage(avatar, avatarSize);
       return {
-        id: user.id,
+        id,
         totalCred: user.totalCred,
         avatarSlug,
       };
