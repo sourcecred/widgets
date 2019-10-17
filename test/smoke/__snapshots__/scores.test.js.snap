@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Expect min-scores-v1 to validate 1`] = `
+Object {
+  "intervals": Array [
+    Object {
+      "endTimeMs": 1540080000000,
+      "startTimeMs": 1539475200000,
+    },
+  ],
+  "users": Array [
+    Object {
+      "address": Array [
+        "sourcecred",
+        "github",
+        "USERLIKE",
+        "USER",
+        "credbot",
+      ],
+      "intervalCred": Array [
+        42.123,
+      ],
+      "totalCred": 42.123,
+    },
+  ],
+}
+`;
+
+exports[`Expect min-scores-v2 to validate 1`] = `
+Object {
+  "intervals": Array [
+    Object {
+      "endTimeMs": 1540080000000,
+      "startTimeMs": 1539475200000,
+    },
+  ],
+  "users": Array [
+    Object {
+      "address": Array [
+        "sourcecred",
+        "github",
+        "USERLIKE",
+        "USER",
+        "credbot",
+      ],
+      "intervalCred": Array [
+        42.123,
+      ],
+      "totalCred": 42.123,
+    },
+  ],
+}
+`;
