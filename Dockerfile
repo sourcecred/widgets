@@ -12,5 +12,6 @@ RUN yarn
 
 # Install the remainder of our code.
 COPY . /code
+RUN yarn -s build
 
 ENTRYPOINT ["/code/bin/contributor-wall-svg.js"]

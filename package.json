@@ -10,15 +10,24 @@
     "sharp": "^0.23.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-flow": "^7.0.0",
+    "flow-bin": "^0.109.0",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0"
   },
   "scripts": {
+    "build": "yarn -s build:clean && yarn -s build:lib",
+    "build:clean": "rimraf lib",
+    "build:lib": "babel -d lib src",
     "prettify": "prettier --write '**/*.js'",
-    "check-pretty": "prettier --list-different '**/*.js'",
-    "test": "yarn run unit && yarn run --silent check-pretty",
-    "unit": "jest"
+    "test": "yarn -s test:flow && yarn -s test:unit && yarn -s test:pretty",
+    "test:flow": "flow --quiet",
+    "test:pretty": "prettier --list-different '**/*.js'",
+    "test:unit": "jest"
   },
   "license": "(MIT OR Apache-2.0)"
 }

@@ -45,6 +45,7 @@ cp -r "${example_dir}/static/"* "${target}"
 echo "Generating widgets"
 cd "${toplevel}"
 yarn
+yarn -s build
 for repo in $REPOS; do
 	echo "Generating ${repo//\//-}-contributors.svg"
 	SOURCECRED_DIRECTORY="${SOURCECRED_DIRECTORY}" node "${SOURCECRED_BIN}/sourcecred.js" scores "${repo}" | \
