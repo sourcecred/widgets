@@ -15,7 +15,7 @@ export interface ScoreService {
   fromJSONString(jsonString: string): ScoreData;
 }
 
-const upgradeFromV010 = (input: ScoreData) => {
+function upgradeFromV010(input: ScoreData): ScoreData {
   return {
     intervals: input.intervals,
     users: input.users.map((u) => ({
@@ -24,16 +24,16 @@ const upgradeFromV010 = (input: ScoreData) => {
       totalCred: u.totalCred,
     })),
   };
-};
+}
 
-const validateScoreFormat = (plainObject: Scores) => {
+function validateScoreFormat(plainObject: Scores): ScoreData {
   return fromCompat(COMPAT_INFO, plainObject, {"0.1.0": upgradeFromV010});
-};
+}
 
-const fromJSONString = (jsonString: string) => {
+function fromJSONString(jsonString: string): ScoreData {
   const plainObject = JSON.parse(jsonString);
   return validateScoreFormat(plainObject);
-};
+}
 
 export const scoreService = {
   validateScoreFormat,
