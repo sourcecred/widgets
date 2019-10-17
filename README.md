@@ -17,12 +17,12 @@ SOURCECRED_GITHUB_TOKEN=YOUR_GITHUB_TOKEN \
 node PATH_TO_SOURCECRED/bin/sourcecred.js scores sourcecred/sourcecred \
   > scores.json
 
-# 2. Install this package's dependencies.
+# 2. Install and build this package.
 yarn
+yarn -s build
 
 # 3. Generate a contributor wall SVG.
-SOURCECRED_GITHUB_TOKEN=YOUR_GITHUB_TOKEN \
-  ./bin/contributor-wall-svg.js < scores.json > contributors.svg
+./bin/contributor-wall-svg.js < scores.json > contributors.svg
 ```
 
 Or using the Docker equivalent of this.
@@ -40,9 +40,7 @@ docker build -t sourcecred/widgets .
 
 # 3. Generate a contributor wall SVG.
 # Note: don't use the -t option here, it will produce an error "the input device is not a TTY".
-SOURCECRED_GITHUB_TOKEN=YOUR_GITHUB_TOKEN \
-  docker run --rm -i -e SOURCECRED_GITHUB_TOKEN sourcecred/widgets \
-  < scores.json > contributors.svg
+docker run --rm -i sourcecred/widgets < scores.json > contributors.svg
 ```
 
 ## Contributors
