@@ -12,7 +12,7 @@ export function avatarRepositoryFactory(cacheDir?: string): AvatarRepository {
   const githubAvatar = async (username: string) => {
     const url = `https://github.com/${username.toLowerCase()}.png`;
     const cache = cacheDir ? createCache({path: cacheDir}) : null;
-    const httpResult = await got.get(url, {encoding: null, cache});
+    const httpResult = await got.get(url, {responseType: "buffer", cache});
     if (!httpResult.fromCache) console.warn("Cache miss for avatar:", username);
     return httpResult.body;
   };
