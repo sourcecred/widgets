@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "esm": "^3.2.25",
-    "got": "^10.2.2",
+    "got": "^10.6.0",
     "keyv-fs-sync": "^0.1.0",
     "mkdirp": "^0.5.1",
     "sharp": "^0.23.0"
